@@ -1,32 +1,42 @@
-WebGuard — Product Requirements Document (PRD)
-Document: Product Requirements Document
-Version: 1.0
-Status: Draft
-Created: May 2026
-Author: James Gichia
-Repository: docs/project/requirements.md
+# WebGuard — Product Requirements Document (PRD)
 
-1. Purpose
+| | |
+|---|---|
+| **Document** | Product Requirements Document |
+| **Version** | 1.0 |
+| **Status** | Draft |
+| **Created** | May 2026 |
+| **Author** | James Gichia |
+| **Repository** | `docs/project/requirements.md` |
+
+---
+
+## 1. Purpose
 This document defines the complete functional and non-functional requirements for WebGuard Version 1.0. It is the authoritative reference for what the product must do, how well it must do it, and what criteria determine that each requirement has been successfully met.
 Every feature built, every module written, and every design decision made during development must trace back to a requirement in this document. If a requirement is not here, it is not in Version 1.0.
 
-2. Document Scope
+## 2. Document Scope
 This PRD covers WebGuard Version 1.0 exclusively. Requirements for Version 2.0 and beyond are noted where relevant but are explicitly out of scope for this document.
 
-3. Stakeholder Reference
-PersonaRolePrimary RequirementsDaniel OchiengDeveloperCLI tool, pipeline integration, fast scans, JSON outputSarah WanjikuSMB OwnerWeb dashboard, plain English reports, PDF export, scoringAmara DialloSecurity ConsultantAccurate findings, professional PDF, multi-target, CLI
+## 3. Stakeholder Reference
 
-4. Functional Requirements
+| Persona | Role | Primary Requirements |
+|---|---|---|
+| Daniel Ochieng | Developer | CLI tool, pipeline integration, fast scans, JSON output |
+| Sarah Wanjiku | SMB Owner | Web dashboard, plain English reports, PDF export, scoring |
+| Amara Diallo | Security Consultant | Accurate findings, professional PDF, multi-target, CLI |
+
+## 4. Functional Requirements
 Functional requirements define what the system must do. Each requirement has a unique ID, a description, a priority, and acceptance criteria.
 Priority levels:
 
-P1 — Critical: Product cannot launch without this
-P2 — High: Significantly impacts core value proposition
-P3 — Medium: Adds meaningful value but not blocking
-P4 — Low: Nice to have in Version 1.0
+- **P1 — Critical:** Product cannot launch without this
+- **P2 — High:** Significantly impacts core value proposition
+- **P3 — Medium:** Adds meaningful value but not blocking
+- **P4 — Low:** Nice to have in Version 1.0
 
 
-4.1 Core Engine Requirements
+### 4.1 Core Engine Requirements
 
 FR-001 — URL Acceptance and Validation
 Priority: P1
@@ -310,7 +320,7 @@ CLI saves PDF file when --format pdf specified
 API returns PDF via GET /api/v1/reports/{scan_id}/pdf
 
 
-4.2 CLI Tool Requirements
+### 4.2 CLI Tool Requirements
 
 FR-018 — CLI Installation
 Priority: P1
@@ -382,7 +392,7 @@ Configuration stored in user home directory (~/.webguard/config.json)
 Configuration values overridden by explicit command-line flags
 
 
-4.3 API Backend Requirements
+### 4.3 API Backend Requirements
 
 FR-022 — User Registration
 Priority: P1
@@ -509,7 +519,7 @@ API key accepted as Bearer token in Authorization header
 API key grants same permissions as the user's JWT for scan submission and retrieval
 
 
-4.4 Web Dashboard Requirements
+### 4.4 Web Dashboard Requirements
 
 FR-031 — Landing Page
 Priority: P1
@@ -644,39 +654,106 @@ All updates call corresponding API endpoints
 Success and error states clearly communicated
 
 
-5. Non-Functional Requirements
+## 5. Non-Functional Requirements
+
 Non-functional requirements define how well the system must perform its functions.
 
-NFR-001 — Performance
-MetricTargetQuick scan completionUnder 60 secondsStandard scan completionUnder 3 minutesDeep scan completionUnder 6 minutesAPI response time (non-scan endpoints)Under 500ms at p95Web dashboard page loadUnder 3 seconds on standard broadbandPDF report generationUnder 30 secondsConcurrent scans supportedMinimum 10 simultaneous
+### NFR-001 — Performance
 
-NFR-002 — Accuracy
-MetricTargetFalse positive rateZero confirmed false positives in first 30 days post-launchFalse negative rate (passive checks)Under 5% on verified test targetsCVE matching accuracyVerified against NVD ground truthScoring consistencySame URL scanned twice within 10 minutes produces identical score
-Accuracy is the single most important non-functional requirement. One confirmed false positive that affects a production deployment destroys user trust permanently.
+| Metric | Target |
+|---|---|
+| Quick scan completion | Under 60 seconds |
+| Standard scan completion | Under 3 minutes |
+| Deep scan completion | Under 6 minutes |
+| API response time (non-scan endpoints) | Under 500ms at p95 |
+| Web dashboard page load | Under 3 seconds on standard broadband |
+| PDF report generation | Under 30 seconds |
+| Concurrent scans supported | Minimum 10 simultaneous |
 
-NFR-003 — Security
+### NFR-002 — Accuracy
+
+| Metric | Target |
+|---|---|
+| False positive rate | Zero confirmed false positives in first 30 days post-launch |
+| False negative rate (passive checks) | Under 5% on verified test targets |
+| CVE matching accuracy | Verified against NVD ground truth |
+| Scoring consistency | Same URL scanned twice within 10 minutes produces identical score |
+
+> [!IMPORTANT]
+> Accuracy is the single most important non-functional requirement. One confirmed false positive that affects a production deployment destroys user trust permanently.
+
+### NFR-003 — Security
+
 The tool that finds security vulnerabilities must itself be secure.
-RequirementSpecificationPassword hashingbcrypt with minimum 12 roundsJWT expiryAccess token: 15 minutes. Refresh token: 7 daysAPI rate limiting10 scan submissions per hour per user. 10 auth attempts per 15 minutes per IPInput validationAll API inputs validated and sanitized before processingSQL injection preventionORM only — no raw SQL queriesPrivate IP blockingScan engine rejects all private IP ranges and localhostSecret managementAll secrets via environment variables — never in codebaseHTTPSProduction deployment serves only HTTPS — no HTTPDependency securityAll dependencies pinned to exact versions and scanned for vulnerabilitiesContainer securityDocker containers run as non-root user
 
-NFR-004 — Reliability
-MetricTargetWeb application uptime99.5% monthlyScan failure rateUnder 2% of submitted scans fail due to system errorScan timeout handlingGraceful timeout returns partial results rather than complete failureDatabase backupDaily automated backups with 7-day retentionError monitoringAll unhandled exceptions captured in Sentry within 60 seconds
+| Requirement | Specification |
+|---|---|
+| Password hashing | bcrypt with minimum 12 rounds |
+| JWT expiry | Access token: 15 minutes. Refresh token: 7 days |
+| API rate limiting | 10 scan submissions per hour per user. 10 auth attempts per 15 minutes per IP |
+| Input validation | All API inputs validated and sanitized before processing |
+| SQL injection prevention | ORM only — no raw SQL queries |
+| Private IP blocking | Scan engine rejects all private IP ranges and localhost |
+| Secret management | All secrets via environment variables — never in codebase |
+| HTTPS | Production deployment serves only HTTPS — no HTTP |
+| Dependency security | All dependencies pinned to exact versions and scanned for vulnerabilities |
+| Container security | Docker containers run as non-root user |
 
-NFR-005 — Usability
-RequirementSpecificationCLI setup timeDeveloper operational within 5 minutes of pip installWeb app onboardingUser completes first scan within 3 minutes of registrationFinding comprehensionNon-technical user can understand every finding without external researchReport shareabilityPDF report understandable by a non-technical manager without explanationMobile responsivenessAll web dashboard pages fully functional on 375px viewport width
+### NFR-004 — Reliability
 
-NFR-006 — Maintainability
-RequirementSpecificationTest coverageMinimum 80% on core engine modulesModule independenceEach check module operable in isolation without engine dependenciesConfigurationScoring weights and severity deductions configurable in single fileDocumentationEvery public function and class has a docstringCode styleBlack formatting, flake8 linting, mypy type checking enforced in CIDependency updatesAutomated dependency vulnerability alerts via GitHub Dependabot
+| Metric | Target |
+|---|---|
+| Web application uptime | 99.5% monthly |
+| Scan failure rate | Under 2% of submitted scans fail due to system error |
+| Scan timeout handling | Graceful timeout returns partial results rather than complete failure |
+| Database backup | Daily automated backups with 7-day retention |
+| Error monitoring | All unhandled exceptions captured in Sentry within 60 seconds |
 
-NFR-007 — Scalability
-RequirementSpecificationScan queueCelery queue handles backlog gracefully — no scan dropped under normal loadWorker scalingAdditional Celery workers can be added without code changesDatabasePostgreSQL schema supports millions of scans without redesignAPIFastAPI async architecture handles concurrent requests without blocking
+### NFR-005 — Usability
 
-6. Constraints
+| Requirement | Specification |
+|---|---|
+| CLI setup time | Developer operational within 5 minutes of pip install |
+| Web app onboarding | User completes first scan within 3 minutes of registration |
+| Finding comprehension | Non-technical user can understand every finding without external research |
+| Report shareability | PDF report understandable by a non-technical manager without explanation |
+| Mobile responsiveness | All web dashboard pages fully functional on 375px viewport width |
+
+### NFR-006 — Maintainability
+
+| Requirement | Specification |
+|---|---|
+| Test coverage | Minimum 80% on core engine modules |
+| Module independence | Each check module operable in isolation without engine dependencies |
+| Configuration | Scoring weights and severity deductions configurable in single file |
+| Documentation | Every public function and class has a docstring |
+| Code style | Black formatting, flake8 linting, mypy type checking enforced in CI |
+| Dependency updates | Automated dependency vulnerability alerts via GitHub Dependabot |
+
+### NFR-007 — Scalability
+
+| Requirement | Specification |
+|---|---|
+| Scan queue | Celery queue handles backlog gracefully — no scan dropped under normal load |
+| Worker scaling | Additional Celery workers can be added without code changes |
+| Database | PostgreSQL schema supports millions of scans without redesign |
+| API | FastAPI async architecture handles concurrent requests without blocking |
+
+## 6. Constraints
+
 These constraints are absolute. They are not requirements to be met — they are boundaries that cannot be crossed.
-ConstraintDescriptionPassive scanning onlyThe engine must never send payloads intended to exploit vulnerabilities. No SQL injection probes. No XSS payloads. No command injection attempts.No private IP scanningThe engine must never scan internal network addresses, cloud metadata endpoints, or localhost under any circumstancesLegal complianceAll functionality must be achievable without violating computer access laws in Kenya, the EU, the US, or the UKVersion 1.0 scopeNo features outside the defined Version 1.0 scope may be built or mergedOpen source dependenciesAll dependencies must have licenses compatible with MIT
 
-7. Acceptance Criteria Summary
+| Constraint | Description |
+|---|---|
+| Passive scanning only | The engine must never send payloads intended to exploit vulnerabilities. No SQL injection probes. No XSS payloads. No command injection attempts. |
+| No private IP scanning | The engine must never scan internal network addresses, cloud metadata endpoints, or localhost under any circumstances. |
+| Legal compliance | All functionality must be achievable without violating computer access laws in Kenya, the EU, the US, or the UK. |
+| Version 1.0 scope | No features outside the defined Version 1.0 scope may be built or merged. |
+| Open source dependencies | All dependencies must have licenses compatible with MIT. |
+
+## 7. Acceptance Criteria Summary
 The following conditions must all be true for WebGuard Version 1.0 to be considered complete and ready for launch:
-Engine
+### Engine
 
  All 10 passive check modules implemented and tested
  Scoring engine produces correct results verified against manual calculation
@@ -685,14 +762,14 @@ Engine
  Engine tested against DVWA with known findings verified
  Zero confirmed false positives in pre-launch testing
 
-CLI
+### CLI
 
  Package installable via pip install webguard on Python 3.11+
  All commands in FR-019 work correctly
  Terminal output matches design specification in FR-020
  Tested on Linux, macOS, and Windows
 
-API
+### API
 
  All endpoints in Section 4.3 implemented and returning correct responses
  JWT authentication working correctly
@@ -700,7 +777,7 @@ API
  All endpoints covered by integration tests
  Swagger documentation accessible at /docs
 
-Web Dashboard
+### Web Dashboard
 
  All pages in Section 4.4 implemented
  All pages mobile responsive at 375px minimum
@@ -708,7 +785,7 @@ Web Dashboard
  PDF and HTML report download working
  Tested in Chrome, Firefox, and Safari
 
-Quality
+### Quality
 
  80% or above test coverage on engine modules
  Zero critical security vulnerabilities in WebGuard itself (verified by running WebGuard against its own domain)
@@ -716,7 +793,7 @@ Quality
  All P2 requirements met
  Sentry error monitoring active and verified
 
-Documentation
+### Documentation
 
  README complete with installation and usage instructions
  API reference complete
@@ -724,7 +801,7 @@ Documentation
  Web app user guide complete
 
 
-8. Out of Scope — Version 1.0
+## 8. Out of Scope — Version 1.0
 The following are explicitly excluded from this document and this version. They are acknowledged as future requirements and will be addressed in subsequent PRDs.
 
 Active scanning of any kind
@@ -741,14 +818,15 @@ CI/CD pipeline plugins (GitHub Actions, GitLab CI)
 Score trend charts and historical analysis (web dashboard)
 
 
-9. Dependencies and Assumptions
-External Dependencies
+## 9. Dependencies and Assumptions
+
+### External Dependencies
 
 NVD API (National Vulnerability Database) — required for FR-012. Failure handled gracefully.
 OSV API (Open Source Vulnerabilities) — fallback for FR-012. Failure handled gracefully.
 WeasyPrint — required for FR-017. Must be installable in deployment environment.
 
-Assumptions
+### Assumptions
 
 Target websites are publicly accessible over HTTP or HTTPS
 Users have legal authorization to scan any URL they submit
@@ -757,8 +835,11 @@ PostgreSQL 14+ available in deployment environment
 Redis 7+ available for Celery task queue
 
 
-10. Revision History
-VersionDateAuthorChanges1.0May 2026James GichiaInitial document
+## 10. Revision History
+
+| Version | Date | Author | Changes |
+|---|---|---|---|
+| 1.0 | May 2026 | James Gichia | Initial document |
 
 This document is version controlled. All changes require a new version entry in the revision history, a descriptive commit message, and review before merging to the docs branch.
 Last updated: May 2026
