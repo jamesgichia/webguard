@@ -6,8 +6,6 @@ Fixtures defined here are available to all tests without explicit imports.
 
 import os
 
-import pytest
-
 # ---------------------------------------------------------------------------
 # Ensure tests always run with WEBGUARD_ENV=testing so no production
 # resources are accidentally touched.
