@@ -1,0 +1,39 @@
+# WebGuard Project State
+
+This file tracks the implementation progress of WebGuard. 
+Update this file after completing significant components.
+
+## Phase 2 Build Status
+
+| Step | Component | Branch | Status |
+|---|---|---|---|
+| 1 | Python env and project config | `feature/project-setup` | ✅ Done |
+| 2 | Base data models | `feature/engine-models` | ✅ Done |
+| 3 | BaseCheck abstract class | `feature/base-check` | ✅ Done |
+| 4 | URL validator | `feature/url-validator` | ✅ Done |
+| 5 | Checks + Orchestrator | `feature/checks` | 🔄 In Progress |
+| 6 | Scoring engine | `feature/scorer` | ⏳ Pending |
+| 7 | Reporter | `feature/reporter` | ⏳ Pending |
+| 8 | CLI tool | `feature/cli` | ⏳ Pending |
+| 9 | API backend | `feature/api` | ⏳ Pending |
+| 10 | Web dashboard | `feature/frontend` | ⏳ Pending |
+
+## Step 5: Checks Implementation Progress
+
+We are currently building the 10 check modules and the orchestrator on `feature/checks`.
+
+| Check Module | OWASP ID | Status | Test Coverage |
+|---|---|---|---|
+| Broken Access Control | A01 | ⏳ Pending | - |
+| Security Misconfiguration | A02 | ⏳ Pending | - |
+| Supply Chain Failures | A03 | ⏳ Pending | - |
+| Cryptographic Failures | A04 | ⏳ Pending | - |
+| Injection | A05 | ⏳ Pending | - |
+| Insecure Design | A06 | ⏳ Pending | - |
+| Auth Failures | A07 | ⏳ Pending | - |
+| Data Integrity Failures | A08 | ⏳ Pending | - |
+| Logging Failures | A09 | ⏳ Pending | - |
+| Exceptional Conditions | A10 | ⏳ Pending | - |
+| Orchestrator | N/A | ⏳ Pending | - |
+
+*Note to future AI agents: Check this file first to see where we left off. Update the statuses as you complete files and their corresponding tests.*
