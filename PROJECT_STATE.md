@@ -24,11 +24,11 @@ We are currently building the 10 check modules and the orchestrator on `feature/
 
 | Check Module | OWASP ID | Status | Test Coverage |
 |---|---|---|---|
-| Broken Access Control | A01 | ⏳ Pending | - |
-| Security Misconfiguration | A02 | ⏳ Pending | - |
-| Supply Chain Failures | A03 | ⏳ Pending | - |
-| Cryptographic Failures | A04 | ⏳ Pending | - |
-| Injection | A05 | ⏳ Pending | - |
+| Broken Access Control | A01 | ✅ Done | 100% |
+| Security Misconfiguration | A02 | ✅ Done | 100% |
+| Supply Chain Failures | A03 | ✅ Done | 100% |
+| Cryptographic Failures | A04 | ✅ Done | 100% |
+| Injection | A05 | ✅ Done | 100% |
 | Insecure Design | A06 | ⏳ Pending | - |
 | Auth Failures | A07 | ⏳ Pending | - |
 | Data Integrity Failures | A08 | ⏳ Pending | - |
