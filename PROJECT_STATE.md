@@ -11,7 +11,7 @@ Update this file after completing significant components.
 | 2 | Base data models | `feature/engine-models` | ✅ Done |
 | 3 | BaseCheck abstract class | `feature/base-check` | ✅ Done |
 | 4 | URL validator | `feature/url-validator` | ✅ Done |
-| 5 | Checks + Orchestrator | `feature/checks` | 🔄 In Progress |
+| 5 | Checks + Orchestrator | `feature/checks` | ✅ Done |
 | 6 | Scoring engine | `feature/scorer` | ⏳ Pending |
 | 7 | Reporter | `feature/reporter` | ⏳ Pending |
 | 8 | CLI tool | `feature/cli` | ⏳ Pending |
@@ -31,9 +31,9 @@ We are currently building the 10 check modules and the orchestrator on `feature/
 | Injection | A05 | ✅ Done | 100% |
 | Insecure Design | A06 | ✅ Done | 100% |
 | Auth Failures | A07 | ✅ Done | 100% |
-| Data Integrity Failures | A08 | ⏳ Pending | - |
-| Logging Failures | A09 | ⏳ Pending | - |
-| Exceptional Conditions | A10 | ⏳ Pending | - |
-| Orchestrator | N/A | ⏳ Pending | - |
+| Data Integrity Failures | A08 | ✅ Done | 100% |
+| Logging Failures | A09 | ✅ Done | 100% |
+| Exceptional Conditions | A10 | ✅ Done | 100% |
+| Orchestrator | N/A | ✅ Done | 100% |
 
 *Note to future AI agents: Check this file first to see where we left off. Update the statuses as you complete files and their corresponding tests.*
