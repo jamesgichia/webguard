@@ -93,3 +93,24 @@ class CheckResult:
     effort: str
     evidence: dict[str, Any] = field(default_factory=dict)
     references: list[str] = field(default_factory=list)
+
+
+@dataclass
+class DimensionScore:
+    """Score for a specific security dimension."""
+
+    dimension: str
+    score: float
+    weight: float
+    grade: str
+    label: str
+
+
+@dataclass
+class ScanScore:
+    """Overall score for a scan, aggregating dimension scores."""
+
+    overall_score: float
+    overall_grade: str
+    overall_label: str
+    dimensions: list[DimensionScore]

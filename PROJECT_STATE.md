@@ -12,7 +12,7 @@ Update this file after completing significant components.
 | 3 | BaseCheck abstract class | `feature/base-check` | ✅ Done |
 | 4 | URL validator | `feature/url-validator` | ✅ Done |
 | 5 | Checks + Orchestrator | `feature/checks` | ✅ Done |
-| 6 | Scoring engine | `feature/scorer` | ⏳ Pending |
+| 6 | Scoring engine | `feature/scorer` | ✅ Done |
 | 7 | Reporter | `feature/reporter` | ⏳ Pending |
 | 8 | CLI tool | `feature/cli` | ⏳ Pending |
 | 9 | API backend | `feature/api` | ⏳ Pending |
