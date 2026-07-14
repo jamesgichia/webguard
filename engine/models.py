@@ -114,3 +114,14 @@ class ScanScore:
     overall_grade: str
     overall_label: str
     dimensions: list[DimensionScore]
+
+
+@dataclass
+class ScanReport:
+    """The final compiled report combining target info, results, and scoring."""
+
+    target_url: str
+    scan_time_utc: str
+    score: ScanScore
+    results: list[CheckResult]
+
