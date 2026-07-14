@@ -29,8 +29,8 @@ We are currently building the 10 check modules and the orchestrator on `feature/
 | Supply Chain Failures | A03 | ✅ Done | 100% |
 | Cryptographic Failures | A04 | ✅ Done | 100% |
 | Injection | A05 | ✅ Done | 100% |
-| Insecure Design | A06 | ⏳ Pending | - |
-| Auth Failures | A07 | ⏳ Pending | - |
+| Insecure Design | A06 | ✅ Done | 100% |
+| Auth Failures | A07 | ✅ Done | 100% |
 | Data Integrity Failures | A08 | ⏳ Pending | - |
 | Logging Failures | A09 | ⏳ Pending | - |
 | Exceptional Conditions | A10 | ⏳ Pending | - |
