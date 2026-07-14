@@ -15,7 +15,7 @@ Update this file after completing significant components.
 | 6 | Scoring engine | `feature/scorer` | ✅ Done |
 | 7 | Reporter | `feature/reporter` | ✅ Done |
 | 8 | CLI tool | `feature/cli` | ✅ Done |
-| 9 | API backend | `feature/api` | ⏳ Pending |
+| 9 | API backend | `feature/api` | 🔄 In Progress |
 | 10 | Web dashboard | `feature/frontend` | ⏳ Pending |
 
 ## Step 5: Checks Implementation Progress

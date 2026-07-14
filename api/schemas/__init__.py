@@ -1,1 +1,3 @@
-"""Pydantic request/response schemas — one module per resource group."""
+"""
+Pydantic schemas.
+"""
