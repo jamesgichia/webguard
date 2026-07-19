@@ -20,6 +20,7 @@ class UserResponse(BaseModel):
     id: uuid.UUID
     email: EmailStr
     is_active: bool
+    is_verified: bool
 
     class Config:
         from_attributes = True

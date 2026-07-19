@@ -4,18 +4,33 @@ FastAPI application entrypoint.
 
 import logging
 
-from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
+from contextlib import asynccontextmanager
 
+from fastapi import FastAPI, Request
+from fastapi.middleware.cors import CORSMiddleware
+from slowapi import _rate_limit_exceeded_handler
+from slowapi.errors import RateLimitExceeded
+
+from api.models.session import init_db
 from api.routes import auth, dashboard, health, keys, reports, scans
+from api.dependencies import limiter
 
 logging.basicConfig(level=logging.INFO)
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    await init_db()
+    yield
 
 app = FastAPI(
     title="WebGuard API",
     description="Passive OWASP Top 10 Web Vulnerability Scanner API",
     version="1.0.0",
+    lifespan=lifespan,
 )
+
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 app.add_middleware(
     CORSMiddleware,

@@ -4,8 +4,7 @@ Finding model.
 
 import uuid
 
-from sqlalchemy import Boolean, ForeignKey, String, JSON
-from sqlalchemy.dialects.postgresql import UUID, JSONB
+from sqlalchemy import Boolean, ForeignKey, String, JSON, Uuid as UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from api.models.base import Base
@@ -27,7 +26,7 @@ class Finding(Base):
     business_impact: Mapped[str] = mapped_column(String, nullable=False)
     recommendation: Mapped[str] = mapped_column(String, nullable=False)
     effort: Mapped[str] = mapped_column(String, nullable=False)
-    evidence: Mapped[dict] = mapped_column(JSONB, default=dict)
-    references: Mapped[list[str]] = mapped_column(JSONB, default=list)
+    evidence: Mapped[dict] = mapped_column(JSON, default=dict)
+    references: Mapped[list[str]] = mapped_column(JSON, default=list)
 
     scan = relationship("Scan", back_populates="findings")

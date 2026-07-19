@@ -4,8 +4,7 @@ Dimension score model.
 
 import uuid
 
-from sqlalchemy import Float, ForeignKey, String
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy import Float, ForeignKey, String, Uuid as UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from api.models.base import Base

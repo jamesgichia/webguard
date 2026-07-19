@@ -1,13 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-cyber-50 text-slate-900 transition-colors duration-300 antialiased;
+  * {
+    @apply box-border;
   }
-  
+
+  html {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-slate-50 text-slate-900 transition-colors duration-300 antialiased;
+  }
+
   .dark body {
-    @apply bg-slate-950 text-slate-100;
+    @apply bg-sentinel-950 text-slate-100;
+  }
+
+  /* Custom scrollbar for dark mode */
+  .dark ::-webkit-scrollbar {
+    @apply w-2;
+  }
+  .dark ::-webkit-scrollbar-track {
+    @apply bg-sentinel-950;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    @apply bg-sentinel-700 rounded-full;
+  }
+  .dark ::-webkit-scrollbar-thumb:hover {
+    @apply bg-sentinel-600;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card surface */
+  .glass-card {
+    @apply bg-white/80 dark:bg-sentinel-900/60 backdrop-blur-xl
+           border border-slate-200 dark:border-sentinel-700/50
+           rounded-2xl shadow-sm;
+  }
+
+  /* Subtle gradient border effect */
+  .gradient-border {
+    position: relative;
+  }
+  .gradient-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(6,182,212,0.4), rgba(139,92,246,0.4));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .gradient-border:hover::before {
+    opacity: 1;
+  }
+
+  /* Scan button shimmer */
+  .btn-primary {
+    @apply px-5 py-2.5 bg-gradient-sentinel text-white rounded-xl
+           font-semibold transition-all duration-300
+           shadow-cyber hover:shadow-cyber-lg
+           hover:scale-[1.02] active:scale-[0.98];
+  }
+
+  /* Subtle pulse dot for live status */
+  .status-dot {
+    @apply relative w-2.5 h-2.5 rounded-full;
+  }
+  .status-dot::after {
+    content: '';
+    @apply absolute inset-0 rounded-full animate-ping;
+    background: inherit;
+    opacity: 0.4;
+  }
+}
+
+@layer utilities {
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-sentinel;
   }
 }

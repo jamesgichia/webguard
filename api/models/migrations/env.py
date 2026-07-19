@@ -27,8 +27,11 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirna
 from api.models import Base
 target_metadata = Base.metadata
 
+from dotenv import load_dotenv
+load_dotenv(os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))), ".env"))
+
 # Override sqlalchemy.url with env var if available
-database_url = os.getenv("DATABASE_URL", "postgresql+asyncpg://webguard:webguard@localhost:5432/webguard")
+database_url = os.getenv("DATABASE_URL", "postgresql+asyncpg://webguard:webguard@localhost:5433/webguard")
 config.set_main_option("sqlalchemy.url", database_url)
 
 # other values from the config, defined by the needs of env.py,

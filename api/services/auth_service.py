@@ -7,9 +7,7 @@ import secrets
 from datetime import datetime, timedelta, timezone
 
 from jose import jwt
-from passlib.context import CryptContext
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+import bcrypt
 
 SECRET_KEY = os.getenv("WEBGUARD_SECRET_KEY", "supersecretkey")
 ALGORITHM = "HS256"
@@ -18,12 +16,15 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     """Verifies a plain text password against a hashed one."""
-    return pwd_context.verify(plain_password, hashed_password)
+    try:
+        return bcrypt.checkpw(plain_password.encode('utf-8')[:72], hashed_password.encode('utf-8'))
+    except ValueError:
+        return False
 
 
 def get_password_hash(password: str) -> str:
     """Returns the bcrypt hash of a password."""
-    return pwd_context.hash(password)
+    return bcrypt.hashpw(password.encode('utf-8')[:72], bcrypt.gensalt()).decode('utf-8')
 
 
 def create_access_token(data: dict, expires_delta: timedelta | None = None) -> str:

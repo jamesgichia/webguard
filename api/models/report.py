@@ -5,8 +5,7 @@ Report model.
 import uuid
 from datetime import datetime, timezone
 
-from sqlalchemy import DateTime, ForeignKey, String
-from sqlalchemy.dialects.postgresql import UUID, JSONB
+from sqlalchemy import DateTime, ForeignKey, String, JSON, Uuid as UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from api.models.base import Base
@@ -20,7 +19,7 @@ class Report(Base):
     
     html_report_path: Mapped[str | None] = mapped_column(String, nullable=True)
     pdf_report_path: Mapped[str | None] = mapped_column(String, nullable=True)
-    json_data: Mapped[dict] = mapped_column(JSONB, default=dict)
+    json_data: Mapped[dict] = mapped_column(JSON, default=dict)
     
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 

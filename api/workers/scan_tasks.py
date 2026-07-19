@@ -27,11 +27,28 @@ celery_app = Celery(
     backend=os.getenv("CELERY_RESULT_BACKEND", "redis://localhost:6379/1"),
 )
 
+celery_app.conf.update(
+    task_always_eager=os.getenv("CELERY_TASK_ALWAYS_EAGER", "True").lower() == "true",
+    task_eager_propagates=True,
+)
+
+
+import asyncio
 
 @celery_app.task(name="scan_tasks.run_scan_job")
 def run_scan_job(scan_id: str, target_url: str) -> None:
     """Entry point for the celery task."""
-    asyncio.run(_async_run_scan_job(scan_id, target_url))
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = None
+
+    if loop and loop.is_running():
+        # Running synchronously within FastAPI (CELERY_TASK_ALWAYS_EAGER=True)
+        loop.create_task(_async_run_scan_job(scan_id, target_url))
+    else:
+        # Running in a standard Celery worker
+        asyncio.run(_async_run_scan_job(scan_id, target_url))
 
 
 async def _async_run_scan_job(scan_id: str, target_url: str) -> None:
